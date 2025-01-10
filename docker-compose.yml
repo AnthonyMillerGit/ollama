@@ -1,0 +1,21 @@
+services:
+    ollama:
+        hostname: ee31e8db611e
+        mac_address: 02:42:ac:11:00:02
+        environment:
+            - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            - OLLAMA_HOST=0.0.0.0
+            - LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64
+            - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+            - NVIDIA_VISIBLE_DEVICES=all
+        volumes:
+            - ./config:/root/.ollama
+        network_mode: bridge
+        ports:
+            - 11434:11434
+        restart: no
+        labels:
+            - org.opencontainers.image.ref.name=ubuntu
+            - org.opencontainers.image.version=22.04
+        runtime: runc
+        image: ollama/ollama:0.5.4
